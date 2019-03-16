@@ -7,9 +7,8 @@ import { Settings } from './settings.model';
 export class SettingsService {
 
   config: Settings = {
-    theme: 'skin-blue',
-    layout: '',
-    sidebar: ''
+    skin: 'skin-blue',
+    layout: [],
   };
 
   constructor() {
@@ -23,10 +22,10 @@ export class SettingsService {
   getConfig() {
     if (localStorage.getItem('config')) {
       this.config = JSON.parse(localStorage.getItem('config'));
-      this.applyTheme(this.config.theme);
+      this.applySkin(this.config.skin);
 
     } else {
-      this.applyTheme(this.config.theme);
+      this.applySkin(this.config.skin);
     }
   }
 
@@ -43,18 +42,26 @@ export class SettingsService {
       'skin-purple-light',
       'skin-green-light',
       'skin-red-light',
-      'skin-yellow-light',
-      'fixed',
-      'layout-boxed',
-      'sidebar-collapse',
-      'control-sidebar-open'
+      'skin-yellow-light'
     );
   }
 
-  applyTheme(theme: string) {
-    this.config.theme = theme;
+  addClass() {
+
+  }
+
+  applySkin(skin: string) {
+    this.config.skin = skin;
     this.setConfig();
     this.removeClass();
-    document.body.classList.add(theme);
+    document.body.classList.add(skin);
+  }
+
+  applyLayout(layout?: string) {
+    const arr: string[] = this.config.layout;
+    const index = arr.indexOf(layout);
+    (index !== -1 ? arr.splice(index, 1) : arr.push(layout));
+    this.setConfig();
+    this.getConfig();
   }
 }
