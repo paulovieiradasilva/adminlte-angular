@@ -25,7 +25,7 @@
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
-        <ul class="{treeview-menu: menu.submenu.length > 0}">
+        <ul class="treeview-menu">
           <li *ngFor="let submenu of menu.submenu" routerLinkActive="active">
             <a [routerLink]="[submenu.url]"><i [class]="submenu.icons"></i> {{ submenu.title }}</a>
           </li>
