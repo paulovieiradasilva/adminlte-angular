@@ -13,6 +13,7 @@ export class SettingsService {
 
   constructor() {
     this.getConfig();
+    this.applyLayout();
   }
 
   setConfig() {
@@ -29,7 +30,7 @@ export class SettingsService {
     }
   }
 
-  removeClass() {
+  removeClassSkin() {
     document.body.classList.remove(
       'skin-blue',
       'skin-black',
@@ -46,14 +47,26 @@ export class SettingsService {
     );
   }
 
-  addClass() {
+  removeClassLayout() {
+    document.body.classList.remove(
+      'fixed',
+      'layout-boxed',
+      'sidebar-collapse',
+      'control-sidebar-open'
+    );
+  }
 
+  addClassLayout() {
+    const arr: string[] = this.config.layout;
+    for (const el of arr) {
+      document.body.classList.toggle(el);
+    }
   }
 
   applySkin(skin: string) {
     this.config.skin = skin;
     this.setConfig();
-    this.removeClass();
+    this.removeClassSkin();
     document.body.classList.add(skin);
   }
 
@@ -62,6 +75,7 @@ export class SettingsService {
     const index = arr.indexOf(layout);
     (index !== -1 ? arr.splice(index, 1) : arr.push(layout));
     this.setConfig();
-    this.getConfig();
+    this.removeClassLayout();
+    this.addClassLayout();
   }
 }

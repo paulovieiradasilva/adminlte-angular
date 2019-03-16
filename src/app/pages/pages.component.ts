@@ -14,6 +14,7 @@ export class PagesComponent implements OnInit, OnDestroy {
     window.dispatchEvent(new Event('resize'));
     document.body.className = 'hold-transition sidebar-mini';
     this._settings.getConfig();
+    this._settings.addClassLayout();
   }
 
   ngOnDestroy() {
