@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SidebarService } from '../../services/services.index';
+declare const $;
 
 @Component({
   selector: 'app-siderbar',
@@ -11,6 +12,11 @@ export class SiderbarComponent implements OnInit {
   constructor(public _sidebar: SidebarService) { }
 
   ngOnInit() {
+    /** Inicializar plugins da Siderbar */
+    $(document).ready(() => {
+      const trees: any = $('[data-widget="tree"]');
+      trees.tree();
+    });
   }
 
 }
